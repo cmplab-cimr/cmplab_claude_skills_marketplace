@@ -40,6 +40,7 @@ git clone git@github.com:cmplab-cimr/cmplab_claude_skills_marketplace.git
 |---------|------|---------|
 | paper_interpret | 学术论文解读技能 | `/paper-interpret` |
 | pubmed-topic-search | PubMed主题文献搜索 | `/pubmed-topic-search` |
+| notion-save-to-project | 将对话输出保存到 Notion 课题项目 | `/notion-save-to-project` |
 
 ## 安装方法
 
@@ -97,12 +98,29 @@ cp -r skills/* ~/.claude/skills/
 /pubmed-topic-search 胰高血糖素受体
 ```
 
+### notion-save-to-project - Notion 课题项目保存
+
+将 Claude 对话中的完整输出保存到用户的 Notion 课题项目数据库中。自动探测课题项目的 database 结构，根据内容类型智能匹配最合适的 database，并自动填充属性（标题、标签、日期、状态等）。核心原则：绝不精简、截断任何内容。
+
+**使用示例：**
+```
+/notion-save-to-project
+保存到 Notion
+把这个存到课题项目
+```
+
+也可通过自然语言触发：
+- "保存到 Notion"、"存到课题项目"
+- "记录下来"、"帮我记到 Notion"
+- "把这个存一下"
+
 ## 依赖要求
 
 ### MCP 服务器
 
 - `pubmed-mcp-server` - PubMed 文献检索
 - `zotero` - 本地文献管理（可选）
+- `notion` - Notion 工作空间管理（用于 notion-save-to-project 技能）
 
 ## 目录结构
 
@@ -116,6 +134,8 @@ cmplab_claude_skills_marketplace/
 │   │   ├── parse_paper_fulltext.py     # 全文解析脚本
 │   │   └── auto_extract_fulltext.py    # 自动提取脚本
 │   └── pubmed-topic-search/            # PubMed主题搜索技能
+│       └── SKILL.md                    # 技能定义
+│   └── notion-save-to-project/         # Notion课题项目保存技能
 │       └── SKILL.md                    # 技能定义
 └── LICENSE                             # 许可证
 ```
